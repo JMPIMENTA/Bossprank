@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Boss Prank</title>
 
 <style>
@@ -13,6 +13,7 @@ body{
   background:#000;
   overflow:hidden;
   font-family:"Courier New", monospace;
+  color:#00ff41;
 }
 
 /* START */
@@ -20,11 +21,10 @@ body{
   position:fixed;
   inset:0;
   background:#020402;
-  color:#00ff41;
   display:flex;
   align-items:center;
   justify-content:center;
-  z-index:999;
+  z-index:99;
 }
 
 #start button{
@@ -34,12 +34,7 @@ body{
   padding:22px 30px;
   font-size:18px;
   border-radius:14px;
-  box-shadow:0 0 30px #00ff41;
-  animation:pulse 1.4s infinite;
-}
-
-@keyframes pulse{
-  50%{transform:scale(1.04);box-shadow:0 0 45px #00ff41}
+  box-shadow:0 0 28px #00ff41;
 }
 
 /* TERMINAL */
@@ -47,39 +42,36 @@ body{
   display:none;
   position:fixed;
   inset:0;
-  padding:14px;
+  padding:16px;
   background:#010501;
-  color:#00ff41;
 }
 
 .termBox{
-  height:100%;
   border:2px solid #00ff41;
+  height:100%;
   padding:14px;
+  box-shadow:0 0 24px #00ff41;
   background:rgba(0,20,0,.78);
-  box-shadow:0 0 28px #00ff41;
-  overflow:hidden;
 }
 
 .termTitle{
   font-size:15px;
   margin-bottom:10px;
-  text-shadow:0 0 10px #00ff41;
 }
 
 .line{
   opacity:0;
   font-size:13px;
   margin:7px 0;
-  animation:show .2s forwards;
+  animation:show .25s forwards;
 }
 
 @keyframes show{to{opacity:1}}
 
 .barBox{
   margin-top:18px;
-  height:18px;
   border:1px solid #00ff41;
+  height:18px;
 }
 
 .bar{
@@ -91,387 +83,80 @@ body{
 
 @keyframes load{to{width:100%}}
 
-.scan{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(transparent 50%,rgba(0,255,65,.06) 50%);
-  background-size:100% 4px;
-  pointer-events:none;
-}
-
-/* FINAL */
+/* FINAL STAR WARS */
 #final{
   display:none;
   position:fixed;
   inset:0;
   overflow:hidden;
-  background:linear-gradient(180deg,#060017,#190033 45%,#020008);
-  color:white;
+  background:#000;
+  color:#ffd700;
 }
 
-/* BACKGROUND */
 .stars{
   position:absolute;
   inset:0;
   background-image:
-    radial-gradient(#fff 1px,transparent 1px),
-    radial-gradient(#ff7be9 1px,transparent 1px);
-  background-size:34px 34px,70px 70px;
-  animation:starsMove 5s linear infinite;
+    radial-gradient(#fff 1px, transparent 1px),
+    radial-gradient(#aaa 1px, transparent 1px);
+  background-size:32px 32px, 70px 70px;
+  animation:stars 14s linear infinite;
 }
 
-@keyframes starsMove{
-  to{background-position:34px 34px,70px 70px}
+@keyframes stars{
+  to{background-position:0 1000px, 0 1400px}
 }
 
-.neonGlow{
-  position:absolute;
-  inset:0;
-  background:
-    radial-gradient(circle at 25% 25%,rgba(255,0,190,.5),transparent 28%),
-    radial-gradient(circle at 80% 35%,rgba(0,225,255,.4),transparent 25%);
-}
-
-.rainbow{
-  position:absolute;
-  top:20%;
-  left:-22%;
-  width:145%;
-  height:270px;
-  border-radius:50%;
-  border-top:24px solid #ff0055;
-  box-shadow:
-    0 -32px 0 #ff9300,
-    0 -64px 0 #ffee00,
-    0 -96px 0 #00ff66,
-    0 -128px 0 #00ccff,
-    0 -160px 0 #9b5cff;
-  opacity:.72;
-  animation:rainbowFloat 4s ease-in-out infinite;
-}
-
-@keyframes rainbowFloat{
-  50%{transform:translateY(18px)}
-}
-
-.grid{
-  position:absolute;
-  bottom:0;
-  width:100%;
-  height:45%;
-  background:
-    linear-gradient(#ff2bd650 1px,transparent 1px),
-    linear-gradient(90deg,#ff2bd650 1px,transparent 1px);
-  background-size:40px 40px;
-  transform:perspective(300px) rotateX(55deg);
-  transform-origin:bottom;
-  box-shadow:0 0 40px #ff2bd6;
-}
-
-/* UI BOXES */
-.soundBox,.musicBox{
-  position:absolute;
-  top:12px;
-  z-index:8;
-  padding:10px;
-  border-radius:12px;
-  font-size:12px;
-  backdrop-filter:blur(6px);
-}
-
-.soundBox{
-  left:12px;
-  border:2px solid #00ff41;
-  color:#00ff41;
-  box-shadow:0 0 18px #00ff41;
-}
-
-.musicBox{
-  right:12px;
-  border:2px solid #ff4fd8;
-  color:#ff4fd8;
-  box-shadow:0 0 18px #ff4fd8;
-}
-
-/* BEARS */
-.bear{
-  position:absolute;
-  font-size:64px;
-  z-index:4;
-  animation:bearBounce 2s infinite ease-in-out;
-  filter:drop-shadow(0 0 16px #ff4fd8);
-}
-
-.b1{left:10px;bottom:210px}
-.b2{right:10px;bottom:210px;animation-delay:.4s}
-.b3{left:34px;top:38%;animation-delay:.8s}
-.b4{right:34px;top:38%;animation-delay:1.2s}
-
-@keyframes bearBounce{
-  50%{transform:translateY(-18px) scale(1.06)}
-}
-
-/* BOSS AVATAR */
-.boss{
-  position:absolute;
-  bottom:230px;
-  left:-240px;
-  width:190px;
-  height:310px;
-  z-index:9;
-  filter:drop-shadow(0 0 28px #ff2bd6);
-  animation:bossEnter 5.2s cubic-bezier(.2,.8,.2,1) forwards;
-}
-
-@keyframes bossEnter{
-  0%{left:-240px;transform:scale(.92)}
-  76%{left:50%;transform:translateX(-50%) scale(1)}
-  100%{left:50%;transform:translateX(-50%) scale(1)}
-}
-
-.bossInner{
-  position:absolute;
-  inset:0;
-  animation:swagger .46s infinite ease-in-out;
-}
-
-@keyframes swagger{
-  0%,100%{transform:translateY(0) rotate(-1deg)}
-  50%{transform:translateY(-9px) rotate(1deg)}
-}
-
-.head{
-  position:absolute;
-  top:0;
-  left:53px;
-  width:84px;
-  height:92px;
-  background:#d79562;
-  border:3px solid #5c2d19;
-  border-radius:48%;
-  z-index:5;
-}
-
-.beard{
-  position:absolute;
-  bottom:5px;
-  left:13px;
-  width:55px;
-  height:35px;
-  background:#24110b;
-  border-radius:0 0 30px 30px;
-}
-
-.eye{
-  position:absolute;
-  top:28px;
-  font-size:23px;
-  z-index:6;
-}
-
-.e1{left:9px}
-.e2{right:9px}
-
-.mouth{
-  position:absolute;
-  bottom:19px;
-  left:31px;
-  font-size:22px;
-  z-index:7;
-  animation:kissMouth .8s infinite;
-}
-
-@keyframes kissMouth{
-  50%{transform:scale(1.25)}
-}
-
-.neck{
-  position:absolute;
-  top:85px;
-  left:76px;
-  width:38px;
-  height:25px;
-  background:#c98552;
-}
-
-.body{
-  position:absolute;
-  top:102px;
-  left:23px;
-  width:144px;
-  height:138px;
-  background:#050505;
-  border:3px solid #222;
-  border-radius:42px 42px 18px 18px;
-  z-index:4;
-}
-
-.trap{
-  position:absolute;
-  top:-22px;
-  left:10px;
-  width:124px;
-  height:58px;
-  background:#050505;
-  clip-path:polygon(50% 0,100% 100%,0 100%);
-}
-
-.shirt{
-  position:absolute;
-  top:14px;
-  left:54px;
-  width:36px;
-  height:116px;
-  background:#fff3cf;
-  border-radius:12px;
-}
-
-.arm{
-  position:absolute;
-  top:120px;
-  width:34px;
-  height:108px;
-  background:#050505;
-  border-radius:22px;
-  z-index:5;
-}
-
-.armL{
-  left:9px;
-  transform-origin:top;
-  animation:leftArm .55s infinite;
-}
-
-.armR{
-  right:4px;
-  transform-origin:top;
-  animation:rightArm .55s infinite;
-}
-
-@keyframes leftArm{
-  50%{transform:rotate(13deg)}
-}
-
-@keyframes rightArm{
-  50%{transform:rotate(-42deg)}
-}
-
-.hand{
-  position:absolute;
-  bottom:-11px;
-  width:36px;
-  height:36px;
-  background:#d79562;
-  border-radius:50%;
-}
-
-.legs{
-  position:absolute;
-  top:225px;
-  left:47px;
-  width:96px;
-  height:78px;
-  z-index:3;
-}
-
-.leg{
-  position:absolute;
-  width:36px;
-  height:76px;
-  background:#c7b28c;
-  border-radius:13px;
-  transform-origin:top;
-}
-
-.leg1{
-  left:0;
-  animation:legWalk1 .55s infinite;
-}
-
-.leg2{
-  right:0;
-  animation:legWalk2 .55s infinite;
-}
-
-@keyframes legWalk1{
-  50%{transform:rotate(12deg)}
-}
-
-@keyframes legWalk2{
-  50%{transform:rotate(-12deg)}
-}
-
-.shoe{
-  position:absolute;
-  bottom:-17px;
-  width:40px;
-  height:19px;
-  background:#080808;
-  border-radius:14px;
-}
-
-/* KISSES */
-.heart{
-  position:absolute;
-  font-size:36px;
-  opacity:0;
-  z-index:12;
-  animation:kissFly 2s infinite;
-}
-
-.h1{left:52%;bottom:435px;animation-delay:5.1s}
-.h2{left:58%;bottom:470px;animation-delay:5.5s}
-.h3{left:46%;bottom:455px;animation-delay:5.9s}
-.h4{left:55%;bottom:415px;animation-delay:6.3s}
-
-@keyframes kissFly{
-  0%{opacity:0;transform:translate(0,0) scale(.45)}
-  20%{opacity:1}
-  100%{opacity:0;transform:translate(95px,-150px) scale(1.5)}
-}
-
-/* STAR WARS TEXT */
 .crawlWrap{
   position:absolute;
-  bottom:-190px;
+  bottom:-220px;
   width:100%;
-  height:48%;
+  height:100%;
   perspective:420px;
-  z-index:7;
   overflow:hidden;
 }
 
 .crawl{
-  width:94%;
+  width:92%;
   margin:auto;
   text-align:center;
-  color:#ff4fd8;
   font-weight:900;
-  text-shadow:0 0 18px #ff4fd8;
-  animation:crawl 10s linear forwards;
-  animation-delay:5.2s;
-  opacity:0;
+  color:#ffd700;
+  text-shadow:0 0 14px #ffd700;
+  transform-origin:50% 100%;
+  animation:crawl 16s linear forwards;
 }
 
 .crawl h2{
-  font-size:31px;
-  margin:0 0 14px;
+  font-size:30px;
+  margin-bottom:28px;
 }
 
 .crawl p{
-  font-size:19px;
-  line-height:1.5;
+  font-size:22px;
+  line-height:1.65;
+}
+
+.big{
+  font-size:34px;
+  display:block;
+  margin-top:18px;
 }
 
 .bj{
-  font-size:52px;
-  color:#fff;
-  text-shadow:0 0 22px #00e5ff;
+  font-size:54px;
+  margin-top:24px;
 }
 
 @keyframes crawl{
-  0%{transform:rotateX(25deg) translateY(330px) scale(1.25);opacity:1}
-  100%{transform:rotateX(25deg) translateY(-470px) scale(.8);opacity:1}
+  0%{
+    transform:rotateX(28deg) translateY(520px) scale(1.35);
+    opacity:1;
+  }
+  100%{
+    transform:rotateX(28deg) translateY(-850px) scale(.55);
+    opacity:1;
+  }
 }
 </style>
 </head>
@@ -487,60 +172,33 @@ body{
     <div class="termTitle">BANCO CENTRAL DOS TUGAS — SISTEMA LEGACY 1998</div>
     <div id="lines"></div>
     <div class="barBox"><div class="bar"></div></div>
-    <div class="scan"></div>
   </div>
 </section>
 
 <section id="final">
   <div class="stars"></div>
-  <div class="neonGlow"></div>
-  <div class="rainbow"></div>
-  <div class="grid"></div>
-
-  <div class="soundBox">🔊 ACEDER...<br>BIP BIP BIP...</div>
-  <div class="musicBox">🎵 MODO ROMÂNTICO<br>ATIVADO</div>
-
-  <div class="bear b1">🧸</div>
-  <div class="bear b2">🐻</div>
-  <div class="bear b3">💖🐻</div>
-  <div class="bear b4">🌈🐻</div>
-
-  <div class="boss">
-    <div class="bossInner">
-      <div class="head">
-        <div class="eye e1">😍</div>
-        <div class="eye e2">😍</div>
-        <div class="beard"></div>
-        <div class="mouth">😘</div>
-      </div>
-      <div class="neck"></div>
-      <div class="body">
-        <div class="trap"></div>
-        <div class="shirt"></div>
-      </div>
-      <div class="arm armL"><div class="hand"></div></div>
-      <div class="arm armR"><div class="hand"></div></div>
-      <div class="legs">
-        <div class="leg leg1"><div class="shoe"></div></div>
-        <div class="leg leg2"><div class="shoe"></div></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="heart h1">💋</div>
-  <div class="heart h2">💖</div>
-  <div class="heart h3">💘</div>
-  <div class="heart h4">💋</div>
 
   <div class="crawlWrap">
     <div class="crawl">
       <h2>PLOT TWIST:<br>NÃO ACEDI A NADA 😇</h2>
+
       <p>
-        Só queria ver se tinhas nível… e falhaste 😂<br>
+        Só queria ver se tinhas nível…<br>
+        e falhaste 😂<br><br>
+
         Nem todos têm o meu nível 👑<br><br>
-        Agora vai… e tenta ter<br>
-        um dia lendário — como eu 😎🔥
+
+        Isto aqui?<br>
+        Fiz em 5 minutos…<br><br>
+
+        Imagina o que faço<br>
+        em 24 horas ⏳🔥<br><br>
+
+        <span class="big">EM BREVE:</span>
+        O curso de como ser<br>
+        <span class="big">JOSÉ PIMENTA 🚀</span>
       </p>
+
       <div class="bj">BJSSS 💋</div>
     </div>
   </div>
@@ -562,23 +220,9 @@ function beep(f=400,d=70,t="square",v=.04){
 }
 
 function typing(){
-  return setInterval(()=>beep(250+Math.random()*650,45,"square",.035),75);
-}
-
-function steps(){
-  let c=0;
-  let s=setInterval(()=>{
-    beep(75,100,"sine",.1);
-    if(++c>11)clearInterval(s);
-  },450);
-}
-
-function music(){
-  const notes=[523,659,784,659,698,880,784,659,587,698,880,698];
-  let i=0;
-  setInterval(()=>{
-    beep(notes[i++%notes.length],360,"sine",.045);
-  },420);
+  return setInterval(()=>{
+    beep(250+Math.random()*650,45,"square",.035);
+  },75);
 }
 
 function start(){
@@ -614,8 +258,6 @@ function start(){
     clearInterval(ts);
     document.getElementById("terminal").style.display="none";
     document.getElementById("final").style.display="block";
-    music();
-    steps();
   },9300);
 }
 </script>
