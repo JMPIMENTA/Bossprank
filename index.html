@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Boss Prank</title>
+  <style>
+    body {
+      margin: 0;
+      background: #0a0a0a;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .container {
+      max-width: 90%;
+    }
+
+    .loading {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .bar {
+      width: 100%;
+      height: 10px;
+      background: #222;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      transition: width 0.5s;
+    }
+
+    .final {
+      display: none;
+      font-size: 20px;
+      line-height: 1.5;
+    }
+
+    .boss {
+      font-size: 60px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div id="loading">
+    <div class="loading" id="text">🔐 Acedendo às tuas contas bancárias...</div>
+    <div class="bar"><div class="progress" id="bar"></div></div>
+  </div>
+
+  <div class="final" id="final">
+    <p>
+      Plot twist: não acedi a nada 😇<br>
+      Só queria ver se tinhas nível… e falhaste 😂<br>
+      Nem todos têm o meu nível 👑<br><br>
+      Agora vai… e tenta ter um dia lendário — como eu 😎🔥<br>
+      bjsss 💋
+    </p>
+    <div class="boss">😎💖</div>
+  </div>
+</div>
+
+<script>
+  const steps = [
+    "🔐 Acedendo às tuas contas bancárias...",
+    "💳 Ligando ao banco...",
+    "📊 A verificar saldo...",
+    "💸 A preparar transferência...",
+    "😈 Obrigado por me deixares aceder..."
+  ];
+
+  let i = 0;
+  let progress = 0;
+
+  const text = document.getElementById("text");
+  const bar = document.getElementById("bar");
+
+  const interval = setInterval(() => {
+    progress += 20;
+    bar.style.width = progress + "%";
+
+    if (i < steps.length) {
+      text.innerText = steps[i];
+      i++;
+    }
+
+    if (progress >= 100) {
+      clearInterval(interval);
+      setTimeout(() => {
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("final").style.display = "block";
+      }, 1000);
+    }
+  }, 1200);
+</script>
+
+</body>
+</html>
