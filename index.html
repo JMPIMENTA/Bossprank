@@ -1,244 +1,35 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Boss Prank</title>
-
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#000;overflow:hidden;font-family:"Courier New",monospace}
+body{margin:0;background:#000;font-family:"Courier New",monospace;overflow:hidden;color:#00ff41}
+#start{position:fixed;inset:0;background:#020402;display:flex;align-items:center;justify-content:center;z-index:99}
+#start button{background:#000;color:#00ff41;border:2px solid #00ff41;padding:20px 28px;font-size:18px;border-radius:14px;box-shadow:0 0 25px #00ff41}
 
-/* START */
-#start{position:fixed;inset:0;background:#020402;color:#00ff41;display:flex;align-items:center;justify-content:center;z-index:99;text-align:center}
-#start button{background:#000;color:#00ff41;border:2px solid #00ff41;padding:18px 28px;font-size:18px;box-shadow:0 0 25px #00ff41;border-radius:12px}
-
-/* TERMINAL */
-#terminalScreen{min-height:100vh;padding:18px;display:none;align-items:center;justify-content:center;color:#00ff41}
-.terminal{width:100%;max-width:460px;border:2px solid #00ff41;padding:16px;background:rgba(0,20,0,.85);box-shadow:0 0 35px #00ff41}
-h1{font-size:16px;margin:0 0 14px}
-.line{font-size:14px;margin:8px 0;opacity:0;animation:appear .25s forwards}
-@keyframes appear{to{opacity:1}}
-.progress{margin-top:18px;height:18px;border:1px solid #00ff41}
+#terminal{display:none;position:fixed;inset:0;padding:16px;background:#010501}
+.termBox{border:2px solid #00ff41;height:100%;padding:14px;box-shadow:0 0 24px #00ff41;background:rgba(0,20,0,.75)}
+.termTitle{font-size:15px;margin-bottom:10px}
+.line{opacity:0;font-size:13px;margin:7px 0;animation:show .25s forwards}
+@keyframes show{to{opacity:1}}
+.barBox{margin-top:18px;border:1px solid #00ff41;height:18px}
 .bar{height:100%;width:0;background:#00ff41;animation:load 9s linear forwards}
 @keyframes load{to{width:100%}}
 
-/* FINAL */
-#final{display:none;position:fixed;inset:0;color:white;overflow:hidden;background:radial-gradient(circle at 20% 20%,#ff4fd8,transparent 25%),radial-gradient(circle at 80% 35%,#00e5ff,transparent 25%),linear-gradient(160deg,#160031,#030008,#27004d)}
-.stars{position:absolute;inset:0;background-image:radial-gradient(#fff 1px,transparent 1px),radial-gradient(#ff9df2 1px,transparent 1px);background-size:35px 35px,70px 70px;animation:stars 4s linear infinite}
+#final{display:none;position:fixed;inset:0;overflow:hidden;background:linear-gradient(180deg,#050015,#16002e 45%,#020008)}
+.stars{position:absolute;inset:0;background-image:radial-gradient(#fff 1px,transparent 1px),radial-gradient(#ff7be9 1px,transparent 1px);background-size:35px 35px,70px 70px;animation:stars 5s linear infinite}
 @keyframes stars{to{background-position:35px 35px,70px 70px}}
+.rainbow{position:absolute;top:20%;left:-20%;width:140%;height:260px;border-radius:50%;border-top:24px solid #ff0055;box-shadow:0 -32px 0 #ff9300,0 -64px 0 #ffee00,0 -96px 0 #00ff66,0 -128px 0 #00ccff,0 -160px 0 #9b5cff;opacity:.75}
+.grid{position:absolute;bottom:0;width:100%;height:45%;background:linear-gradient(#ff2bd650 1px,transparent 1px),linear-gradient(90deg,#ff2bd650 1px,transparent 1px);background-size:40px 40px;transform:perspective(300px) rotateX(55deg);transform-origin:bottom;box-shadow:0 0 35px #ff2bd6}
 
-.rainbow{position:absolute;top:17%;left:-25%;width:150%;height:300px;border-radius:50%;border-top:26px solid #ff004c;box-shadow:0 -34px 0 #ff9900,0 -68px 0 #ffe600,0 -102px 0 #00ff66,0 -136px 0 #00ccff,0 -170px 0 #9b5cff;opacity:.65;animation:float 4s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(20px)}}
+.soundBox{position:absolute;top:12px;left:12px;border:2px solid #00ff41;color:#00ff41;padding:10px;border-radius:10px;box-shadow:0 0 14px #00ff41;font-size:12px}
+.musicBox{position:absolute;top:12px;right:12px;border:2px solid #ff4fd8;color:#ff4fd8;padding:10px;border-radius:10px;box-shadow:0 0 14px #ff4fd8;font-size:12px}
 
-.bear{position:absolute;font-size:58px;z-index:3;animation:bounce 2s infinite}
-.b1{left:18px;bottom:190px}.b2{right:18px;bottom:200px;animation-delay:.4s}.b3{left:25px;top:120px;animation-delay:.8s}.b4{right:25px;top:130px;animation-delay:1.2s}
-@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+.bear{position:absolute;font-size:58px;z-index:4;animation:bounce 2s infinite}
+.b1{left:12px;bottom:205px}.b2{right:12px;bottom:205px;animation-delay:.4s}.b3{left:40px;top:38%;animation-delay:.8s}.b4{right:40px;top:38%;animation-delay:1.2s}
+@keyframes bounce{50%{transform:translateY(-16px)}}
 
-/* BONECO BOSS */
-.bossAvatar{
-  position:absolute;
-  bottom:245px;
-  left:-180px;
-  width:150px;
-  height:260px;
-  z-index:6;
-  animation:walkIn 5s ease-out forwards, walkBounce .45s infinite;
-  filter:drop-shadow(0 0 22px #ff4fd8);
-}
-@keyframes walkIn{
-  0%{left:-180px}
-  75%,100%{left:50%;transform:translateX(-50%)}
-}
-@keyframes walkBounce{0%,100%{margin-bottom:0}50%{margin-bottom:10px}}
-
-.head{width:72px;height:82px;background:#d4915c;border-radius:48% 48% 44% 44%;position:absolute;top:0;left:39px;border:3px solid #552a19}
-.beard{position:absolute;bottom:5px;left:12px;width:48px;height:30px;background:#3b1d12;border-radius:0 0 30px 30px}
-.eye{position:absolute;top:28px;font-size:24px}.e1{left:10px}.e2{right:10px}
-.mouth{position:absolute;bottom:20px;left:28px;font-size:20px}
-.neck{position:absolute;top:76px;left:57px;width:36px;height:22px;background:#c98250}
-.body{
-  position:absolute;top:92px;left:20px;width:110px;height:120px;
-  background:#050505;border-radius:30px 30px 16px 16px;
-  border:3px solid #222;
-}
-.shirt{position:absolute;top:10px;left:38px;width:34px;height:105px;background:#fff8df;border-radius:10px}
-.trap{
-  position:absolute;top:-12px;left:18px;width:74px;height:40px;
-  background:#050505;clip-path:polygon(50% 0,100% 100%,0 100%);
-}
-.arm{position:absolute;top:105px;width:28px;height:95px;background:#050505;border-radius:20px}
-.armL{left:10px;transform:rotate(12deg)}
-.armR{right:6px;transform:rotate(-35deg)}
-.hand{position:absolute;bottom:-10px;width:30px;height:30px;background:#d4915c;border-radius:50%}
-.armL .hand{left:0}.armR .hand{right:0}
-.legs{position:absolute;top:205px;left:34px;width:82px;height:55px}
-.leg{position:absolute;width:32px;height:70px;background:#c3b08d;border-radius:12px}
-.leg1{left:0}.leg2{right:0}
-.shoe{position:absolute;bottom:-18px;width:36px;height:18px;background:#111;border-radius:10px}
-.leg1 .shoe{left:-2px}.leg2 .shoe{right:-2px}
-
-/* BEIJOS */
-.heart{position:absolute;font-size:34px;z-index:8;opacity:0;animation:kiss 2s infinite}
-.h1{left:52%;bottom:410px;animation-delay:5s}
-.h2{left:58%;bottom:450px;animation-delay:5.4s}
-.h3{left:45%;bottom:430px;animation-delay:5.8s}
-@keyframes kiss{0%{opacity:0;transform:translate(0,0) scale(.5)}25%{opacity:1}100%{opacity:0;transform:translate(75px,-120px) scale(1.4)}}
-
-/* TEXTO STAR WARS */
-.crawlWrap{position:absolute;bottom:-170px;width:100%;height:46%;perspective:420px;z-index:4;overflow:hidden}
-.crawl{width:90%;margin:auto;text-align:center;color:#ff4fd8;font-weight:900;text-shadow:0 0 15px #ff4fd8;transform:rotateX(25deg);animation:crawl 9s linear forwards;animation-delay:5.2s;opacity:0}
-.crawl h2{font-size:30px;margin:0 0 15px}
-.crawl p{font-size:20px;line-height:1.5}
-.bj{font-size:46px;color:#fff;text-shadow:0 0 20px #00e5ff}
-@keyframes crawl{0%{transform:rotateX(25deg) translateY(280px) scale(1.2);opacity:1}100%{transform:rotateX(25deg) translateY(-430px) scale(.8);opacity:1}}
-</style>
-</head>
-
-<body>
-
-<div id="start">
-  <button onclick="startPrank()">CLICA PARA ACEDER 🔐</button>
-</div>
-
-<section id="terminalScreen">
-  <div class="terminal">
-    <h1>BANCO CENTRAL DOS TUGAS — SISTEMA LEGACY 1998</h1>
-    <div id="terminal"></div>
-    <div class="progress"><div class="bar"></div></div>
-  </div>
-</section>
-
-<section id="final">
-  <div class="stars"></div>
-  <div class="rainbow"></div>
-
-  <div class="bear b1">🧸</div>
-  <div class="bear b2">🐻</div>
-  <div class="bear b3">☁️🐻</div>
-  <div class="bear b4">💖🐻</div>
-
-  <div class="bossAvatar">
-    <div class="head">
-      <div class="eye e1">😍</div>
-      <div class="eye e2">😍</div>
-      <div class="beard"></div>
-      <div class="mouth">😘</div>
-    </div>
-    <div class="neck"></div>
-    <div class="body">
-      <div class="trap"></div>
-      <div class="shirt"></div>
-    </div>
-    <div class="arm armL"><div class="hand"></div></div>
-    <div class="arm armR"><div class="hand"></div></div>
-    <div class="legs">
-      <div class="leg leg1"><div class="shoe"></div></div>
-      <div class="leg leg2"><div class="shoe"></div></div>
-    </div>
-  </div>
-
-  <div class="heart h1">💋</div>
-  <div class="heart h2">💖</div>
-  <div class="heart h3">💘</div>
-
-  <div class="crawlWrap">
-    <div class="crawl">
-      <h2>PLOT TWIST:<br>NÃO ACEDI A NADA 😇</h2>
-      <p>
-        Só queria ver se tinhas nível… e falhaste 😂<br>
-        Nem todos têm o meu nível 👑<br><br>
-        Agora vai… e tenta ter<br>
-        um dia lendário — como eu 😎🔥
-      </p>
-      <div class="bj">BJSSS 💋</div>
-    </div>
-  </div>
-</section>
-
-<script>
-let audioCtx;
-
-function beep(freq=400,duration=80,type="square",volume=.04){
-  const osc=audioCtx.createOscillator();
-  const gain=audioCtx.createGain();
-  osc.type=type;
-  osc.frequency.value=freq;
-  gain.gain.value=volume;
-  osc.connect(gain);
-  gain.connect(audioCtx.destination);
-  osc.start();
-  osc.stop(audioCtx.currentTime+duration/1000);
-}
-
-function typingSound(){
-  return setInterval(()=>beep(280+Math.random()*500,45,"square",.035),90);
-}
-
-function footstepSound(){
-  let count=0;
-  const step=setInterval(()=>{
-    beep(85,90,"sine",.09);
-    count++;
-    if(count>10) clearInterval(step);
-  },450);
-}
-
-function romanticMusic(){
-  const notes=[523,659,784,659,698,880,784,659];
-  let i=0;
-  setInterval(()=>{
-    beep(notes[i%notes.length],350,"sine",.045);
-    i++;
-  },420);
-}
-
-function startPrank(){
-  audioCtx=new (window.AudioContext||window.webkitAudioContext)();
-
-  document.getElementById("start").style.display="none";
-  document.getElementById("terminalScreen").style.display="flex";
-
-  const typeSound=typingSound();
-
-  const lines=[
-    "[ OK ] A estabelecer ligação segura...",
-    "[ OK ] A autenticar utilizador...",
-    "[ OK ] A aceder ao sistema bancário...",
-    "[ OK ] A consultar saldo disponível...",
-    "[ OK ] A desbloquear cofre digital...",
-    "[ OK ] A iniciar transferência...",
-    "[ OK ] Valor encontrado: INFINITO €",
-    "[ OK ] Transferência emocional autorizada...",
-    "[ !  ] Obrigado por me deixares aceder..."
-  ];
-
-  const terminal=document.getElementById("terminal");
-
-  lines.forEach((line,i)=>{
-    setTimeout(()=>{
-      const div=document.createElement("div");
-      div.className="line";
-      div.textContent=line;
-      terminal.appendChild(div);
-    },i*850);
-  });
-
-  setTimeout(()=>{
-    clearInterval(typeSound);
-    document.getElementById("terminalScreen").style.display="none";
-    document.getElementById("final").style.display="block";
-    romanticMusic();
-    footstepSound();
-
-    setTimeout(()=>{
-      beep(900,100,"sine",.08);
-      beep(1200,130,"sine",.08);
-    },5200);
-
-  },9300);
-}
-</script>
-
-</body>
-</html>
+.boss{position:absolute
